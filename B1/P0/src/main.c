@@ -10,6 +10,7 @@
   *   - LD1 (Verde)  en PB0  : Parpadea en bucle principal
   *   - LD2 (Azul)   en PB7  : Parpadea en bucle principal
   *   - LD3 (Rojo)   en PB14 : Parpadea en bucle principal
+  *   - LD3 (Rojo)   en PB14 : Parpadea en bucle principal
   *
   *   Los LEDs se alternan periódicamente con retardos de 100ms usando
   *   HAL_Delay() y HAL_GPIO_TogglePin().
@@ -168,6 +169,12 @@ int main(void)
 
     /* Wait 100 ms */
     HAL_Delay(100);
+
+    /* Toggle LD3 (Red LED on PB14) */
+    HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_14);
+
+    /* Wait 100 ms */
+    HAL_Delay(100);
   }
 
 
@@ -287,6 +294,8 @@ void assert_failed(uint8_t* file, uint32_t line)
 /**
   * @}
   */
+
+
 
 
 
