@@ -29,7 +29,9 @@ Thumbs.db
 # VS Code / CMSIS-Toolbox (carpeta vc/)
 **/out/
 **/tmp/
+**/.cmsis/
 *.cbuild.yml
+*.cbuild-pack.yml
 *.cbuild-idx.yml
 *.cbuild-run.yml
 *.cbuild-set.yml
