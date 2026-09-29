@@ -1,0 +1,47 @@
+project:
+  packs:
+    - pack: ARM::CMSIS@6.3.0
+    - pack: Keil::STM32F4xx_DFP@2.17.1
+
+  setups:
+    - setup: Options for Target_1
+      processor:
+        fpu: "off"
+      debug: "on"
+      define:
+        - HSE_VALUE: "8000000"
+      misc:
+        - C:
+            - -std=c11
+          C-CPP:
+            - -ffunction-sections
+            - -funsigned-char
+            - -Wno-missing-prototypes
+            - -Wno-sign-conversion
+          ASM:
+            - -masm=auto
+          Link:
+            - --map
+            - --strict
+            - --summary_stderr
+
+  linker:
+    - script: p2-3_Target_1.sct
+
+  groups:
+    - group: Application
+      files:
+        - file: ../src/main.c
+
+  components:
+    - component: ARM::CMSIS:CORE
+    - component: Keil::Device:STM32Cube Framework:Classic
+    - component: Keil::Device:STM32Cube HAL:Common
+    - component: Keil::Device:STM32Cube HAL:Cortex
+    - component: Keil::Device:STM32Cube HAL:ADC
+    - component: Keil::Device:STM32Cube HAL:DMA
+    - component: Keil::Device:STM32Cube HAL:GPIO
+    - component: Keil::Device:STM32Cube HAL:PWR
+    - component: Keil::Device:STM32Cube HAL:RCC
+    - component: Keil::Device:STM32Cube HAL:TIM
+    - component: Keil::Device:Startup

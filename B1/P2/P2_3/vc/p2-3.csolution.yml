@@ -1,0 +1,17 @@
+solution:
+  created-for: CMSIS-Toolbox@2.13.0
+  compiler: AC6
+  target-types:
+    - type: Target_1
+      device: STM32F429ZITx
+      optimize: debug
+      target-set:
+        - set:
+          images:
+            - project-context: p2-3
+          debugger:
+            name: ST-Link@pyOCD
+            clock: 4000000
+            protocol: swd
+  projects:
+    - project: p2-3.cproject.yml
