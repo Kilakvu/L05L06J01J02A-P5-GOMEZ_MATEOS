@@ -152,7 +152,10 @@ static void Set_Output_Frequency(uint32_t frequency_hz)
     __HAL_TIM_SET_AUTORELOAD(&htim2, counts_per_half_period - 1U);
     __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_4, counts_per_half_period - 1U);
     __HAL_TIM_SET_COUNTER(&htim2, 0U);
-    __HAL_TIM_GENERATE_EVENT(&htim2, TIM_EVENTSOURCE_UPDATE);
+    if (HAL_TIM_GenerateEvent(&htim2, TIM_EVENTSOURCE_UPDATE) != HAL_OK)
+    {
+        Error_Handler();
+    }
     __HAL_TIM_SET_COUNTER(&htim2, 0U);
     (void)HAL_TIM_OC_Start(&htim2, TIM_CHANNEL_4);
     current_frequency_hz = frequency_hz;

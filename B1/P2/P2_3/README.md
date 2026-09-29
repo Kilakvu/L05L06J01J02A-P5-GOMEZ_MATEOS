@@ -86,9 +86,9 @@ En VS Code también se puede abrir `vc/p2-3.csolution.yml`, seleccionar `Target_
 
 ## Estado de validación
 
-La implementación y la configuración CMSIS están preparadas. En la última compilación, CMake llegó a invocar `armclang`, pero el compilador no obtuvo la licencia (`Flex error -15`, servidor `8224@LICENCIAS.SEC.UPM.ES` inaccesible); por ello aún no hay una compilación confirmada ni se puede verificar el binario de este estado. El aviso deprecado `no-dev` no es la causa del fallo. Reintentar el build cuando haya conexión a la red/VPN del servidor de licencias.
+La compilación y el enlace con AC6 V6.24 finalizaron correctamente; se generó `vc/out/p2-3/Target_1/p2-3.axf`. Para preparar un evento de actualización al cambiar ARR/CCR, el código usa `HAL_TIM_GenerateEvent()`, que está declarada por el HAL STM32F4 del pack. El aviso `no-dev` es deprecado, pero no impide compilar.
 
-La validación eléctrica también queda pendiente: medir PB11 con el analizador y comprobar PC13 con la placa. Registrar las lecturas reales y adjuntar las capturas aquí o en una carpeta `capturas/`; no sustituirlas por los valores teóricos.
+La validación eléctrica aún queda pendiente: medir PB11 con el analizador y comprobar PC13 con la placa. La opción de joystick está deshabilitada por defecto (`ENABLE_JOYSTICK = 0`), por lo que el build normal no valida ese bloque condicional; si se entrega el opcional, activarlo y compilarlo también. Registrar las lecturas reales y adjuntar las capturas aquí o en una carpeta `capturas/`; no sustituirlas por los valores teóricos.
 
 ## Git
 
