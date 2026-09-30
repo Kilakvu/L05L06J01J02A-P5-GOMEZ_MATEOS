@@ -43,22 +43,23 @@ B1/
 ## 3. Guía de Desarrollo de los Ejercicios
 
 ### Ejercicio 1: Configuración del Árbol de Reloj (RCC)
-- **Objetivo:** Crear un proyecto en Keil $\mu$Vision para la placa NUCLEO-F429ZI configurando el reloj de los temporizadores de APB1 a **$48\text{ MHz}$**.
+- **Objetivo:** Configurar el reloj del sistema y de los temporizadores para obtener la frecuencia correcta en la NUCLEO-F429ZI.
 - **Preescaladores fijos:**
   - AHB Prescaler = `1`
   - APB1 Prescaler = `4`
   - APB2 Prescaler = `2`
-- **Cálculo de Parámetros:**
-  - Reloj de entrada HSE = $8\text{ MHz}$.
-  - Frecuencia de los timers en APB1: Dado que el preescalador de APB1 es $4 \ne 1$, los timers reciben el doble del reloj de periféricos de APB1 ($f_{\text{TIM\_APB1}} = 2 \cdot PCLK1$).
-  - Por lo tanto: $PCLK1 = \frac{48\text{ MHz}}{2} = 24\text{ MHz}$.
-  - Dado que $\text{APB1 Prescaler} = 4$, la frecuencia del bus del sistema debe ser:
-    $$HCLK = SYSCLK = 24\text{ MHz} \cdot 4 = 96\text{ MHz}$$
-  - Parámetros del PLL ($M, N, P$) para obtener $SYSCLK = 96\text{ MHz}$ a partir de $HSE = 8\text{ MHz}$:
-    $$f_{\text{VCO\_IN}} = \frac{8\text{ MHz}}{M} \quad (\text{recomendado } 1\text{ a } 2\text{ MHz, fijamos } M = 8 \Rightarrow f_{\text{VCO\_IN}} = 1\text{ MHz})$$
-    $$f_{\text{VCO\_OUT}} = 1\text{ MHz} \cdot N$$
-    $$SYSCLK = \frac{f_{\text{VCO\_OUT}}}{P} \Rightarrow \frac{N}{P} = 96$$
-    Eligiendo el divisor estándar $P = 2$, se obtiene $N = 192$ ($192\text{ MHz} \le f_{\text{VCO\_OUT}} \le 432\text{ MHz}$, dentro del rango permitido).
+- **Cálculo de parámetros:**
+  - Reloj de entrada HSE = 8 MHz.
+  - En APB1, como el prescaler es 4, los timers reciben el doble del reloj periférico: `fTIM-APB1 = 2 × PCLK1`.
+  - Por tanto: `PCLK1 = 48 MHz / 2 = 24 MHz`.
+  - Dado que APB1 divide por 4, la frecuencia del bus de sistema debe ser: `HCLK = SYSCLK = 24 MHz × 4 = 96 MHz`.
+  - Para el PLL, con `HSE = 8 MHz` y objetivo `SYSCLK = 96 MHz`:
+    - `fVCO,in = 8 MHz / M`
+    - Se recomienda que `fVCO,in` esté entre 1 y 2 MHz; fijando `M = 8`, resulta `fVCO,in = 1 MHz`.
+    - `fVCO,out = 1 MHz × N`
+    - `SYSCLK = fVCO,out / P`, luego `N / P = 96`.
+    - Con el divisor estándar `P = 2`, se obtiene `N = 192`.
+    - El valor es válido porque `192 MHz` está dentro del rango permitido para el VCO.
 
 | Elemento | Valor |
 |---|---|
