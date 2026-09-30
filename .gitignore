@@ -53,3 +53,5 @@ tmp/
 
 # Quitar MD por el momento
 *.md
+!B1/P1/README.md
+!B1/P1/readme_b1_p1.md

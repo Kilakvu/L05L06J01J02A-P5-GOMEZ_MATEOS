@@ -31,8 +31,8 @@ project:
   groups:
     - group: Application
       files:
-        - file: main.c
-        - file: stm32f4xx_it.c
+        - file: ../src/main.c
+        - file: ../src/stm32f4xx_it.c
 
   components:
     - component: ARM::CMSIS:CORE
