@@ -1,0 +1,39 @@
+#include "Thread.h"
+#include "main.h"
+
+osThreadId_t g_tid_led1 = NULL;
+
+static void Init_LedPin(GPIO_TypeDef *port, uint16_t pin)
+{
+  GPIO_InitTypeDef gpio = {0};
+
+  gpio.Pin = pin;
+  gpio.Mode = GPIO_MODE_OUTPUT_PP;
+  gpio.Pull = GPIO_NOPULL;
+  gpio.Speed = GPIO_SPEED_FREQ_LOW;
+
+  HAL_GPIO_Init(port, &gpio);
+  HAL_GPIO_WritePin(port, pin, GPIO_PIN_RESET);
+}
+
+void App_LED1_Thread(void *argument)
+{
+  (void)argument;
+
+  for (;;) {
+    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET);
+    osDelay(200U);
+    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET);
+    osDelay(800U);
+  }
+}
+
+void Init_Threads(void)
+{
+  __HAL_RCC_GPIOB_CLK_ENABLE();
+  Init_LedPin(GPIOB, GPIO_PIN_0);
+  g_tid_led1 = osThreadNew(App_LED1_Thread, NULL, NULL);
+  if (g_tid_led1 == NULL) {
+    Error_Handler();
+  }
+}
