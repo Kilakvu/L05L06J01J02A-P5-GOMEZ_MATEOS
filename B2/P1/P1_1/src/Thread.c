@@ -4,6 +4,7 @@
 osThreadId_t g_tid_led1 = NULL;
 osThreadId_t g_tid_led2 = NULL;
 osThreadId_t g_tid_led3 = NULL;
+static uint32_t led1_cycles = 0U;
 
 static void Init_LedPin(GPIO_TypeDef *port, uint16_t pin)
 {
@@ -27,6 +28,11 @@ void App_LED1_Thread(void *argument)
     osDelay(200U);
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET);
     osDelay(800U);
+
+    led1_cycles++;
+    if ((led1_cycles % 5U) == 0U) {
+      osThreadFlagsSet(g_tid_led2, THREAD_LED2_FLAG);
+    }
   }
 }
 

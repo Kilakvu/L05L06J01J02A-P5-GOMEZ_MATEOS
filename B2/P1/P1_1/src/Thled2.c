@@ -6,9 +6,13 @@ void App_LED2_Thread(void *argument)
   (void)argument;
 
   for (;;) {
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_SET);
-    osDelay(137U);
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_RESET);
-    osDelay(137U);
+    osThreadFlagsWait(THREAD_LED2_FLAG, osFlagsWaitAny, osWaitForever);
+
+    for (uint32_t i = 0U; i < 20U; i++) {
+      HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_7);
+      osDelay(137U);
+    }
+
+    osThreadFlagsSet(g_tid_led3, THREAD_LED3_FLAG);
   }
 }
