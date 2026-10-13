@@ -56,6 +56,7 @@ project:
       files:
         - file: ../src/main.c
         - file: ../src/Thread.c
+        - file: ../src/Thjoy.c
   components:
     - component: ARM::CMSIS:CORE
     - component: Keil::Device:STM32Cube Framework:Classic
