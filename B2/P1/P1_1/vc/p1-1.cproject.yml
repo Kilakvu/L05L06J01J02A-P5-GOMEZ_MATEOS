@@ -56,6 +56,8 @@ project:
       files:
         - file: ../src/main.c
         - file: ../src/Thread.c
+        - file: ../src/Thled2.c
+        - file: ../src/Thled3.c
   components:
     - component: ARM::CMSIS:CORE
     - component: Keil::Device:STM32Cube Framework:Classic

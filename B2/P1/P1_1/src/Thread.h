@@ -5,8 +5,12 @@
 #include "cmsis_os2.h"
 
 extern osThreadId_t g_tid_led1;
+extern osThreadId_t g_tid_led2;
+extern osThreadId_t g_tid_led3;
 
 void Init_Threads(void);
 void App_LED1_Thread(void *argument);
+void App_LED2_Thread(void *argument);
+void App_LED3_Thread(void *argument);
 
 #endif
